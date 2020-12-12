@@ -16,6 +16,9 @@ public class MapTest {
     public static void main(String[] args) {
 
         HashMap<String, Object> dpMap = Maps.newHashMap();
+
+        Optional.ofNullable(dpMap).map(o -> o.keySet().contains("123")).orElse(false);
+
         dpMap.put("110", "pause");
         dpMap.put("120", 1);
 
@@ -29,6 +32,7 @@ public class MapTest {
 
         JSONObject jsonObject = JSONObject.parseObject(str);
         Map<String, Object> map = (Map<String, Object>) jsonObject;
+        //Map<String, Object> map = new HashMap<>();
         System.out.println(Optional.ofNullable(map).map(o -> o.keySet().contains("110")).orElse(false));
 
 
