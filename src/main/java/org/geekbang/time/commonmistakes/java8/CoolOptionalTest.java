@@ -7,18 +7,27 @@ import java.util.OptionalDouble;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class CoolOptionalTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void optional() {
+        //获取值
         assertThat(Optional.of(1).get(), is(1));
+        //如果为null,那么就为另外一个值
         assertThat(Optional.ofNullable(null).orElse("A"), is("A"));
+        //值是否为null
+        assertTrue(OptionalDouble.of(1).isPresent());
+        //值是否为null
         assertFalse(OptionalDouble.empty().isPresent());
+        //map
         assertThat(Optional.of(1).map(Math::incrementExact).get(), is(2));
+        //filter
         assertThat(Optional.of(1).filter(integer -> integer % 2 == 0).orElse(null), is(nullValue()));
+        //抛异常
         Optional.empty().orElseThrow(IllegalArgumentException::new);
+        //抛异常
+        Optional.ofNullable(null).orElseThrow(IllegalArgumentException::new);
     }
 }
