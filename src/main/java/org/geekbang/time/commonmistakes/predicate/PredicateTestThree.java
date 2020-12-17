@@ -1,6 +1,5 @@
 package org.geekbang.time.commonmistakes.predicate;
 
-import sun.awt.SunHints;
 
 import java.util.function.Predicate;
 

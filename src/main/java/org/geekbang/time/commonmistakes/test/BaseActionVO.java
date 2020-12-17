@@ -2,10 +2,8 @@ package org.geekbang.time.commonmistakes.test;
 
 import lombok.Getter;
 import lombok.Setter;
-import sun.awt.image.ImageWatched;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
