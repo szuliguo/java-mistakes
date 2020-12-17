@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.Optional;
 import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -13,6 +14,9 @@ public class CoolOptionalTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void optional() {
+        //OptionalInt
+        Integer a = 1;
+        System.out.println(OptionalInt.of(a).orElse(2));
         //获取值
         assertThat(Optional.of(1).get(), is(1));
         //如果为null,那么就为另外一个值
@@ -29,5 +33,8 @@ public class CoolOptionalTest {
         Optional.empty().orElseThrow(IllegalArgumentException::new);
         //抛异常
         Optional.ofNullable(null).orElseThrow(IllegalArgumentException::new);
+        //map + orelse
+        String str = Optional.ofNullable(1).map(String::valueOf).orElse("");
+
     }
 }

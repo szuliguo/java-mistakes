@@ -1,9 +1,6 @@
 package org.geekbang.time.commonmistakes.other;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Legal
@@ -12,6 +9,14 @@ import java.util.Optional;
 public class ListTest {
 
     public static void main(String[] args) {
+
+
+        Map<String, Object> dpMap = new HashMap<>();
+        dpMap.remove("a");
+        dpMap.remove("b");
+
+        Object o = null;
+        System.out.println("".equalsIgnoreCase((String)o));
 
         ArrayList<String> list = new ArrayList<>();
         ArrayList<String> list1 = null;
