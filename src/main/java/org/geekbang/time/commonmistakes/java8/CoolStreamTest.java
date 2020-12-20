@@ -63,6 +63,18 @@ public class CoolStreamTest {
     }
 
     @Test
+    public void stream2() {
+
+        List<Integer> ints = Arrays.asList(1, 2, 3, 4);
+        double streamResult = ints.stream()
+                .map(i -> new Point2D.Double((double) i % 3, (double) i / 3))
+                .filter(point -> point.getY() > 1)
+                .mapToDouble(point -> point.distance(0, 0))
+                .max()
+                .orElse(0);
+    }
+
+    @Test
     public void coolCache() //一条语句实现cache的常用模式
     {
         getProductAndCacheCool(1L);
@@ -83,6 +95,12 @@ public class CoolStreamTest {
         assertTrue(cache.containsKey(1L));
     }
 
+    /**
+     * map 的 key 不存在的时候， computeIfAbsent
+     * good
+     * @param id
+     * @return
+     */
     private Product getProductAndCacheCool(Long id) {
         return cache.computeIfAbsent(id, i -> //当Key不存在的时候提供一个Function来代表根据Key获取Value的过程
                 Product.getData().stream()
@@ -91,6 +109,11 @@ public class CoolStreamTest {
                         .orElse(null)); //如果找不Product到则使用null
     }
 
+    /**
+     * bad
+     * @param id
+     * @return
+     */
     private Product getProductAndCache(Long id) {
         Product product = null;
         if (cache.containsKey(id)) {
@@ -108,6 +131,10 @@ public class CoolStreamTest {
         return product;
     }
 
+    /**
+     * s
+     * @throws IOException
+     */
     @Test
     public void filesExample() throws IOException {
         //无限深度，递归遍历文件夹
@@ -131,8 +158,28 @@ public class CoolStreamTest {
     }
 
 
+    /**
+     * ThrowingFunction 的 unchecked 方法 返回的是一个Function
+     * 此 function 接受一个参数 t, 然后返回一个R.
+     * 和 flatMap中的 参数function 是吻合的
+     * @param <T>
+     * @param <R>
+     * @param <E>
+     */
     @FunctionalInterface
     public interface ThrowingFunction<T, R, E extends Throwable> {
+
+
+        /**
+         * 注意这里有俩个return,
+         * 第一个return 的含义是: 传入一个参数t, 返回了一个结果。那么刚好就是 Fucntiopn<T,R>
+         * 第二个return,也就是 try 里面的 return  的含义是: 表示返回了一个值
+         * @param f
+         * @param <T>
+         * @param <R>
+         * @param <E>
+         * @return
+         */
         static <T, R, E extends Throwable> Function<T, R> unchecked(ThrowingFunction<T, R, E> f) {
             return t -> {
                 try {
