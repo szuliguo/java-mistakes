@@ -73,7 +73,7 @@ public class StringUtilTest {
         System.out.println(splitMap.toString());
         //[foo, bar, , baz]
         System.out.println(Splitter.on('|').trimResults().split("foo|bar ||baz "));
-        Lists.newArrayList(Splitter.on('|').split("foo|bar ||baz "));
+        System.out.println(Lists.newArrayList(Splitter.on('|').trimResults().split("foo|bar|baz")));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class StringUtilTest {
         //向右填充x
         System.out.println(Strings.padEnd("12345", 10, 'x'));
        //向左填充x
-        System.out.println(Strings.padStart("12345", 10, 'x'));
+        System.out.println(Strings.padStart("2", 2, '0'));
       //判断字符串是否为空
         System.out.println(Strings.isNullOrEmpty(null));
      //生成重复字符串

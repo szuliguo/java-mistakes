@@ -1,6 +1,12 @@
 package org.geekbang.time.commonmistakes.other;
 
+import com.google.common.collect.Lists;
+import org.geekbang.time.commonmistakes.test.CategoryGroupTimerVO;
+
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.partitioningBy;
 
 /**
  * @author Legal
@@ -39,6 +45,32 @@ public class ListTest {
         Optional.ofNullable(forList)
                 .orElse(Collections.emptyList())
                 .forEach(e -> { } );
+
+
+        List<Integer> integerList = Lists.newArrayList(1, 2, 20, 10, 8, 9);
+        integerList = integerList.stream().filter(a -> a > 10).collect(Collectors.toList());
+        System.out.println(integerList);
+        integerList.add(0, 0);
+        System.out.println(integerList);
+
+
+        List<String> stringList = null;
+        stringList = Optional.ofNullable(stringList).orElse(Lists.newArrayListWithCapacity(1));
+        stringList.add("a");
+
+        List<room> rooms = new ArrayList<room>();
+        Map<Boolean, List<room>> map = Optional.ofNullable(rooms).orElse(Collections.emptyList())
+                .stream()
+                .collect(partitioningBy(obj -> obj.getName().equals("aa")));
+
+
+        System.out.println("map" + map.get(false));
+        System.out.println("map" + map.get(true));
+
+        List<String> deviceIds = null;
+        for (String devId : deviceIds) {
+            System.out.println(devId);
+        }
 
 
 

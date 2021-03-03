@@ -2,6 +2,7 @@ package org.geekbang.time.commonmistakes.test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mysql.cj.xdevapi.JsonArray;
+import org.checkerframework.checker.nullness.Opt;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
@@ -62,6 +63,26 @@ public class ListTest {
                 .filter(a -> a.getCount() > 1)
                 .collect(Collectors.toList());
         System.out.println(list1);
+
+        A a1 = new A(2, "name");
+        List<A> aList = new ArrayList<>();
+        aList.add(a1);
+
+        Optional<A> optionalA  = aList.stream().filter(timer -> timer.getCount() == 2).findAny();
+        if (optionalA.isPresent()) {
+            System.out.println("##### anyTimer");
+            System.out.println(optionalA);
+        }
+
+        System.out.println("##### no Timer");
+
+        List<String> strList = Collections.emptyList();
+        strList.forEach((s) -> {
+            System.out.println();
+        });
+
+
+
 
     }
 
