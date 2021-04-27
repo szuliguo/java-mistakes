@@ -1,10 +1,10 @@
 package org.geekbang.time.commonmistakes.guaua.collections;
 
 import com.google.common.collect.*;
+import org.hibernate.id.IntegralDataTypeHolder;
 import org.junit.Test;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Legal
@@ -20,6 +20,22 @@ public class RangeMapTest {
 
     @Test
     public void rangeMapTest() {
+
+
+
+        RangeMap<Integer, String> test = TreeRangeMap.create();
+        test.putCoalescing(Range.closedOpen(5, 10), "at_home");
+        test.putCoalescing(Range.closedOpen(1, 5), "at_home");
+
+        System.out.println(test.get(6));
+
+        Map<Range<Integer>, String>  mapTest = test.asMapOfRanges();
+        System.out.println(mapTest.toString());
+
+        Map<String, RangeMap<Integer, String>> mapTest2 = new HashMap<>();
+        mapTest2.put("", test);
+        System.out.println(mapTest2.get(""));
+
 
         RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
         //{[1,10] => "foo"}

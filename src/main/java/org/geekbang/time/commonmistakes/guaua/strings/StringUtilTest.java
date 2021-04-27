@@ -72,7 +72,7 @@ public class StringUtilTest {
         // {id=1, name=jack}
         System.out.println(splitMap.toString());
         //[foo, bar, , baz]
-        System.out.println(Splitter.on('|').trimResults().split("foo|bar ||baz "));
+        System.out.println(Splitter.on(' ').trimResults().split("+91       9880865706"));
         System.out.println(Lists.newArrayList(Splitter.on('|').trimResults().split("foo|bar|baz")));
     }
 
@@ -97,17 +97,20 @@ public class StringUtilTest {
     @Test
     public void matcherTest() {
 
-        String string = "123control45 ";
+        String string = "+91 9880865706 ";
         //移除control字符
         String noControl = CharMatcher.javaIsoControl().removeFrom(string);
         //只保留数字字符
         String theDigits = CharMatcher.digit().retainFrom(string);
+
+        System.out.println(theDigits);
         //用*号替换所有数字
         String noDigits = CharMatcher.javaDigit().replaceFrom(string, "*");
         // 只保留数字和小写字母
         String lowerAndDigit = CharMatcher.javaDigit().or(CharMatcher.javaLowerCase()).retainFrom(string);
 
         System.out.println(string);
+
 
     }
 
