@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
  * @author Legal
  * @date 2020/12/7
  *
+ * java中Optional的应用，以及map和flatMap的区别
+ * https://blog.csdn.net/qq_35634181/article/details/101109300
+ *
  *
  * https://www.runoob.com/java/java8-optional-class.html
  */
