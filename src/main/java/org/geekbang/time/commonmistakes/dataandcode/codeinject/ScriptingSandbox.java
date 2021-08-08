@@ -1,6 +1,6 @@
 package org.geekbang.time.commonmistakes.dataandcode.codeinject;
 
-import jdk.nashorn.tools.Shell;
+//import jdk.nashorn.tools.Shell;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.script.ScriptEngine;
@@ -34,7 +34,7 @@ public class ScriptingSandbox {
         setPermissions(Arrays.asList(
                 new RuntimePermission("getProtectionDomain"),
                 new PropertyPermission("jdk.internal.lambda.dumpProxyClasses", "read"),
-                new FilePermission(Shell.class.getProtectionDomain().getPermissions().elements().nextElement().getName(), "read"),
+//                new FilePermission(Shell.class.getProtectionDomain().getPermissions().elements().nextElement().getName(), "read"),
                 new RuntimePermission("createClassLoader"),
                 new RuntimePermission("accessClassInPackage.jdk.internal.org.objectweb.*"),
                 new RuntimePermission("accessClassInPackage.jdk.nashorn.internal.*"),

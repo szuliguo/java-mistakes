@@ -1,9 +1,7 @@
 package org.geekbang.time.commonmistakes.concurrenttool.ciavspia;
 
-import com.sun.corba.se.impl.orb.ParserTable;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;

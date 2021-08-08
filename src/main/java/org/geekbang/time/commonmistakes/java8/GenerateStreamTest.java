@@ -11,6 +11,9 @@ import java.util.stream.Stream;
 
 public class GenerateStreamTest {
 
+    /**
+     * 通过 stream.of 方法传入多个元素构成一个流
+     */
     @Test
     public void of() {
         String[] arr = {"a", "b", "c"};
@@ -19,24 +22,37 @@ public class GenerateStreamTest {
         Stream.of(1, 2, "a").map(item -> item.getClass().getName()).forEach(System.out::println);
     }
 
+    /**
+     * 通过Stream.iterate方法使用迭代的方式构造一个无限流，然后使用limit限制流元素个数
+     */
     @Test
     public void iterate() {
         Stream.iterate(2, item -> item * 2).limit(10).forEach(System.out::println);
         Stream.iterate(BigInteger.ZERO, n -> n.add(BigInteger.TEN)).limit(10).forEach(System.out::println);
     }
 
+
+    /**
+     * 通过Stream.generate方法从外部传入一个提供元素的Supplier来构造无限流，然后使用limit限制流元素个数
+     */
     @Test
     public void generate() {
         Stream.generate(() -> "test").limit(3).forEach(System.out::println);
         Stream.generate(Math::random).limit(10).forEach(System.out::println);
     }
 
+    /**
+     * 通过 stream 方法把List 或者数组转换为流
+     */
     @Test
     public void stream() {
         Arrays.asList("a1", "a2", "a3").stream().forEach(System.out::println);
         Arrays.stream(new int[]{1, 2, 3}).forEach(System.out::println);
     }
 
+    /**
+     * 通过IntStream或DoubleStream构造基本类型的流
+     */
     @Test
     public void primitive() {
         System.out.println(Integer.parseInt("00"));

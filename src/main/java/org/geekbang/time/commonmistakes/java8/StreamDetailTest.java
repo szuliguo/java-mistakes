@@ -1,6 +1,9 @@
 package org.geekbang.time.commonmistakes.java8;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.ToString;
 import org.geekbang.time.commonmistakes.java8.collector.MostPopularCollector;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +34,9 @@ public class StreamDetailTest {
         System.out.println("==========================================");
     }
 
+    /**
+     * 中间条件是 predicate
+     */
     @Test
     public void filter() {
         System.out.println("//最近半年的金额大于40的订单");
@@ -41,6 +47,9 @@ public class StreamDetailTest {
                 .forEach(System.out::println);
     }
 
+    /**
+     * 中间条件是 function
+     */
     @Test
     public void map() {
         //计算所有订单商品数量
@@ -50,6 +59,7 @@ public class StreamDetailTest {
                 order.getOrderItemList().forEach(orderItem -> longAdder.add(orderItem.getProductQuantity())));
 
         //使用两次mapToLong+sum方法实现
+        // 无须中间变量 longAdder,更加的直观
         assertThat(longAdder.longValue(), is(orders.stream().mapToLong(order ->
                 order.getOrderItemList().stream()
                         .mapToLong(OrderItem::getProductQuantity).sum()).sum()));
@@ -87,6 +97,15 @@ public class StreamDetailTest {
                 .sum());
     }
 
+
+    @Test
+    public void groupBy2() {
+
+    }
+
+    /**
+     * 分组操作比较的复杂
+     */
     @Test
     public void groupBy() {
         System.out.println("//按照用户名分组，统计下单数量");
@@ -169,6 +188,38 @@ public class StreamDetailTest {
                 .distinct().collect(joining(",")));
     }
 
+    @Test
+    public void collect2() {
+        //连结操作
+        System.out.println(IntStream.rangeClosed(1, 10)
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                .toString());
+
+        //data
+        Person p1 = new Person(2, "p1");
+        Person p2 = new Person(3, "p2");
+
+        //summingInt
+        System.out.println(Arrays.stream(new Person[] {p1, p2}).collect(summingInt(Person::getAge)));
+        //averagingInt
+        System.out.println(Arrays.stream(new Person[] {p1, p2}).collect(averagingInt(Person::getAge)));
+        //minBy
+        System.out.println(Arrays.stream(new Person[] {p1, p2}).collect(minBy(comparing(Person::getAge))));
+        //maxBy
+        System.out.println(Arrays.stream(new Person[] {p1, p2}).collect(maxBy(comparing(Person::getAge))));
+    }
+
+    @AllArgsConstructor
+    @Data
+    class Person {
+
+        private int age;
+        private String name;
+    }
+
+    /**
+     * collect test
+     */
     @Test
     public void collect() {
         System.out.println("//生成一定位数的随机字符串");

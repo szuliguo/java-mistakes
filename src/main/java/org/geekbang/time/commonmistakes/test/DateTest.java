@@ -4,6 +4,10 @@ import org.apache.commons.lang.time.DateFormatUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.TemporalField;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -19,9 +23,13 @@ public class DateTest {
 
         String timeZoneId = "Asia/Shanghai";
 
-        System.out.println(string2Date("Asia/Shanghai", "20201028", "yyyyMMdd"));
-        System.out.println(getNowDate("Asia/Shanghai"));
-        System.out.println(addDay("Asia/Shanghai", getNowDate("Asia/Shanghai"), 6 ));
+        System.out.println(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of(timeZoneId)).getDayOfWeek().getValue());
+
+        //System.out.println(string2Date("Asia/Shanghai", "20201028", "yyyyMMdd"));
+        //System.out.println(getNowDate("Asia/Shanghai"));
+        Date now = getNowDate("Asia/Shanghai");
+        System.out.println(addDay("Asia/Shanghai", now, -1 ));
+        System.out.println("now" + now);
         System.out.println(getRelativeTime("01:01"));
 
         Date start = getNowDate("Asia/Shanghai");
@@ -31,6 +39,9 @@ public class DateTest {
 
         TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
         Calendar calendar = Calendar.getInstance(timeZone);
+        System.out.println("#####");
+        System.out.println(calendar.get(Calendar.DAY_OF_WEEK));
+        System.out.println("#####");
         calendar.setTime(start);
 
 

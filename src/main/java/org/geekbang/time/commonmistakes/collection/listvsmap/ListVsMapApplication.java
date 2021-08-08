@@ -1,6 +1,6 @@
 package org.geekbang.time.commonmistakes.collection.listvsmap;
 
-import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator;
+//import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,12 +24,12 @@ public class ListVsMapApplication {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start("listSearch");
         Object list = listSearch(elementCount, loopCount);
-        System.out.println(ObjectSizeCalculator.getObjectSize(list));
+//        System.out.println(ObjectSizeCalculator.getObjectSize(list));
         stopWatch.stop();
         stopWatch.start("mapSearch");
         Object map = mapSearch(elementCount, loopCount);
         stopWatch.stop();
-        System.out.println(ObjectSizeCalculator.getObjectSize(map));
+//        System.out.println(ObjectSizeCalculator.getObjectSize(map));
         System.out.println(stopWatch.prettyPrint());
         TimeUnit.HOURS.sleep(1);
     }

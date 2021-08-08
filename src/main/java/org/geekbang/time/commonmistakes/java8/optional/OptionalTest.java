@@ -1,12 +1,21 @@
 package org.geekbang.time.commonmistakes.java8.optional;
 
+import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Range;
+import com.google.common.collect.RangeMap;
+import com.google.common.collect.TreeRangeMap;
+import org.apache.commons.lang.StringUtils;
 import org.apache.zookeeper.Op;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Legal
  * @date 2020/12/7
+ *
+ * java中Optional的应用，以及map和flatMap的区别
+ * https://blog.csdn.net/qq_35634181/article/details/101109300
  *
  *
  * https://www.runoob.com/java/java8-optional-class.html
@@ -14,6 +23,47 @@ import java.util.Optional;
 public class OptionalTest {
 
     public static void main(String[] args) {
+
+        Map<String, RangeMap<Long, String>> map = new HashMap<>();
+        RangeMap<Long, String> rangeMap1 = TreeRangeMap.create();
+        rangeMap1.put(Range.closedOpen(8L, 19L), "liguo");
+        map.put("0", rangeMap1);
+
+        RangeMap<Long, String> loopRangeMap = map.get("0");
+        loopRangeMap.putCoalescing(Range.closedOpen(0L, 7L), "guo");
+
+
+        for (Map.Entry<String, RangeMap<Long, String>> entry : map.entrySet()) {
+            Map<Range<Long>, String> periodMap  = entry.getValue().asMapOfRanges();
+
+            System.out.println(periodMap);
+            System.out.println(periodMap.get(0L));
+            if (Objects.isNull(periodMap.get(0L))) {
+                System.out.println("is null");
+            }
+
+        }
+
+        System.out.println(map.get("0").get(2L));
+
+
+//        Map<String, Integer> map = new HashMap<String, Integer>();
+//        map.put("118", 210);
+//        map.put("119", 230);
+//        System.out.println(JSONObject.toJSONString(map));
+
+        System.out.println(StringUtils.isNumeric(""));
+
+        System.out.println(getLeaveTemperOrDefault());
+        String booleanString = null;
+        System.out.println(Optional.ofNullable(booleanString)
+                .map(Boolean::parseBoolean)
+                .orElse(false));
+
+
+        testOptionalList();
+
+        testOptionalMap();
 
         OptionalTest optionalTest = new OptionalTest();
 
@@ -44,4 +94,45 @@ public class OptionalTest {
         Integer value2 = b.get();
         return value1 + value2;
     }
+
+    public static void testOptionalMap() {
+
+        String result = null;
+        Map<String, Object> dpMap = new HashMap<>();
+        dpMap.put("1", "11");
+        Integer obj = Optional.ofNullable(dpMap.get("1")).map(o -> Integer.valueOf(o.toString())).orElse(1);
+
+
+        System.out.println(obj);
+
+    }
+
+    public static void testOptionalList() {
+        List<String> list = new ArrayList<>();
+        list.add("a");
+        List<String> list2 = Optional.ofNullable(list).orElse(Collections.emptyList())
+                .stream()
+                .collect(Collectors.toList());
+        System.out.println(list2.toString());
+    }
+
+
+    /**
+     * 获取离家温度
+     */
+    public static Integer getLeaveTemperOrDefault() {
+        return Optional.ofNullable("2")
+                .filter(StringUtils::isNotBlank)
+                .map(Integer::valueOf)
+                .orElse(1);
+    }
+
+    /**
+     * 检查字符串是否是数字
+     */
+    private static boolean filterNotNumeric(String string) {
+        return StringUtils.isNumeric(string);
+    }
+
+
 }
