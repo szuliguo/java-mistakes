@@ -305,7 +305,7 @@ public final class RingBufferWheel {
         try {
             lock.lock();
             size--;
-            // 如果定时任务数量为0，通过condition唤醒，暂停时间轮
+            // 如果定时任务数量为0，通过condition唤醒
             if (size == 0) {
                 condition.signal();
             }
@@ -314,20 +314,23 @@ public final class RingBufferWheel {
         }
     }
 
+
+    /**
+     * target 是否是 2^n
+     */
     private boolean powerOf2(int target) {
         if (target < 0) {
             return false;
         }
-        int value = target & (target - 1);
-        if (value != 0) {
-            return false;
-        }
-
-        return true;
+        return (target & (target - 1)) == 0;
     }
 
+    /**
+     * 求索引
+     * target % mod
+     *
+     */
     private int mod(int target, int mod) {
-        // equals target % mod
         log.info("mod  before target = {}, mod = {}, tick = {}", target, mod, tick.get());
         target = target + tick.get();
         int result =  target & (mod - 1);
@@ -335,6 +338,11 @@ public final class RingBufferWheel {
         return result;
     }
 
+    /**
+     * 求 cycleNum
+     * target/mod
+     * Integer.bitCount: 二进制中1的数量
+     */
     private int cycleNum(int target, int mod) {
         //equals target/mod
         return target >> Integer.bitCount(mod - 1);
@@ -413,6 +421,7 @@ public final class RingBufferWheel {
                         executorService.submit(task);
                     }
 
+                    // 下一个索引
                     if (++index > bufferSize - 1) {
                         index = 0;
                     }
