@@ -19,6 +19,7 @@ public class CollectionutilsTest {
 
     @Test
     public void listTest() {
+
         //推断范型，初始化元素和容量的静态工厂方法
         List<String> colorList = Lists.newArrayList();
         List<Integer> intList = Ints.asList(4, 5, 6);
