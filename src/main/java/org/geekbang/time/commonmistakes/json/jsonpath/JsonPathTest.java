@@ -14,6 +14,11 @@ public class JsonPathTest {
 
     @Test
     public void jsonPathTest() {
+
+        double d = 114.155333;
+        long a = Math.round(d);
+        System.out.println(a);
+
         SubDevice subDevice = new SubDevice("sub");
         Device object = new Device("abc", subDevice);
         Function<Object, Object> function = compileJsonPath("subDevice.sub");
