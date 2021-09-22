@@ -12,6 +12,13 @@ import java.util.function.Function;
  */
 public class CharTest {
 
+
+    /**
+     * test1
+     * test1
+     * test1
+     */
+
     @Test
     public void charTest() {
 
